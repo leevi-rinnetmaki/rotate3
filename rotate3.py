@@ -47,7 +47,7 @@ class Encoder:
         
     def handler(self, pin):
         if self.b():
-            varis=oled.fill(1)
+            #varis=oled.fill(1)
             self.fifo.put(-1)
 
         else:
@@ -57,9 +57,8 @@ rot = Encoder(10, 11)
 
 while True:
     if rot.fifo.has_data():
-        #print(rot.fifo.get())
-        
-        if rot.fifo.get() == 1 and not position>=100:
+        suunta=rot.fifo.get()
+        if suunta == 1 and not position>=100:
             oled.fill(0)
             for x in range(127):
                 oled.pixel(x,int(((lista[position+x]-mini)/(maxi-mini))*64),1)
@@ -67,11 +66,10 @@ while True:
             oled.show()
             print(position)
             
-        elif not position<=0:
+        elif suunta == -1 and not position<=0:
             oled.fill(0)
             for x in range(127):
                 oled.pixel(x,int(((lista[position+x]-mini)/(maxi-mini))*64),1)
             position-=1
             oled.show()
             print(position)
-
