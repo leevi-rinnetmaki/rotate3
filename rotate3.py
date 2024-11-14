@@ -17,26 +17,7 @@ for x in range(1000):
 print(lista)
 maxi=max(lista)
 mini=min(lista)
-print(mini, maxi)
-
-"""
-class testiclass:
-
-    def testi2(self):
-        oled.fill(0)
-        oled.text("1", 0, 0, 1)
-        oled.show()
-
-testiob = testiclass()
-testiob.testi2()
-
-for x in range(1):
-    print(data.get())
-    
-            #oled.fill(0)
-            #oled.text("723", 0, 0, 1)
-            #oled.show()
-"""
+print(mini, maxi, len(lista))
 
 class Encoder:
     def __init__(self, rot_a, rot_b):
@@ -47,18 +28,16 @@ class Encoder:
         
     def handler(self, pin):
         if self.b():
-            #varis=oled.fill(1)
             self.fifo.put(-1)
-
         else:
             self.fifo.put(1)
 
 rot = Encoder(10, 11)
 
 while True:
-    if rot.fifo.has_data():
+    while rot.fifo.has_data():
         suunta=rot.fifo.get()
-        if suunta == 1 and not position>=100:
+        if suunta == 1 and not position>=1000:
             oled.fill(0)
             for x in range(127):
                 oled.pixel(x,int(((lista[position+x]-mini)/(maxi-mini))*64),1)
