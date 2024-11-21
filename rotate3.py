@@ -1,7 +1,6 @@
-from machine import Pin
 from fifo import Fifo
 from filefifo import Filefifo
-from machine import UART, Pin, I2C, Timer, ADC
+from machine import Pin, I2C
 from ssd1306 import SSD1306_I2C
 i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
 oled_width = 128
@@ -36,8 +35,8 @@ rot = Encoder(10, 11)
 
 while True:
     while rot.fifo.has_data():
-        suunta=rot.fifo.get()
-        if suunta == 1 and not position>=1000:
+        direction=rot.fifo.get()
+        if direction == 1 and not position>=1000:
             oled.fill(0)
             for x in range(127):
                 oled.pixel(x,int(((lista[position+x]-mini)/(maxi-mini))*64),1)
@@ -45,7 +44,7 @@ while True:
             oled.show()
             print(position)
             
-        elif suunta == -1 and not position<=0:
+        elif direction == -1 and not position<=0:
             oled.fill(0)
             for x in range(127):
                 oled.pixel(x,int(((lista[position+x]-mini)/(maxi-mini))*64),1)
