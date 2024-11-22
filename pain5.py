@@ -40,13 +40,13 @@ class mover:
                 screen.show()
                 self.x+=math.sin(self.direction)
                 self.y+=math.cos(self.direction)
-                self.direction+=0.3
+                self.direction-=0.3
             else:
                 screen.pixel(int(self.x), int(self.y), 1)
                 screen.show()
                 self.x+=math.sin(self.direction)
                 self.y+=math.cos(self.direction)
-                self.direction-=0.3
+                self.direction+=0.3
                 
         else:
                 screen.pixel(int(self.x), int(self.y), 1)
